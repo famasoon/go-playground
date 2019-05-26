@@ -1,0 +1,23 @@
+version: "3"
+services:
+  proxy:
+    build: ./proxy
+    ports:
+      - "8001:8001"
+    links:
+      - "server"
+
+  server:
+    build: ./server
+    ports:
+      - "9999:9999"
+    volumes:
+      - ./server:/go/src/server
+    container_name: "server"
+
+  client:
+    build: ./client
+    ports:
+      - "8080:8080"
+    links:
+      - "server"
